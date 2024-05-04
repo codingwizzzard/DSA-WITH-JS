@@ -1,0 +1,108 @@
+<script>
+    class Node {
+        constructor(data) {
+            this.data = data
+            this.next = null
+        }
+    }
+
+    class List {
+        constructor() {
+            this.head = null
+        }
+        insertAtAnyPos(index, data) {
+            const newNode = new Node(data)
+            let current = this.head
+            if (index == 0) {
+                newNode.next = current
+                this.head = newNode
+                return
+            }
+            if (current == null) {
+                console.log("No head is present")
+                return
+            }
+            while (--index) {
+                if (current.next != null) {
+                    current = current.next
+                } else {
+                    console.log("Index out of boundary")
+                    return
+                }
+            }
+            let temp = current.next
+            current.next = newNode
+            newNode.next = temp
+        }
+
+        mergesort(head) {
+            if (head == null || head.next == null) {
+                return head
+            }
+            const middle = this.MidVal(head)
+            const leftHalf = head
+            const rightHalf = middle.next
+            middle.next = null
+
+            const sortedLeftHalf = this.mergesort(leftHalf)
+            const sortedRightHalf = this.mergesort(rightHalf)
+            return this.merge(sortedLeftHalf, sortedRightHalf)
+        }
+
+        MidVal(head) {
+            let leftidx = head
+            let rightidx = head.next
+
+            while (rightidx != null && rightidx.next != null) {
+                leftidx = leftidx.next
+                rightidx = rightidx.next.next
+            }
+            return leftidx
+        }
+
+        merge(left, right) {
+            const newNode = new Node(0)
+            let current = newNode
+
+            while (left != null && right != null) {
+                if (left.data < right.data) {
+                    current.next = left
+                    left = left.next
+                } else {
+                    current.next = right
+                    right = right.next
+                }
+                current = current.next
+            }
+            if (left != null) {
+                current.next = left
+            }
+            if (right != null) {
+                current.next = right
+            }
+
+            return newNode.next
+        }
+
+        printList() {
+            let current = this.head
+            while (current != null) {
+                console.log(current.data)
+                current = current.next
+            }
+        }
+    }
+
+    const list = new List()
+    list.insertAtAnyPos(0, 30)
+    list.insertAtAnyPos(1, 10)
+    list.insertAtAnyPos(2, 20)
+
+    console.log("Original List:")
+    list.printList()
+
+    list.head = list.mergesort(list.head)
+
+    console.log("Sorted List:")
+    list.printList()
+</script>

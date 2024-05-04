@@ -1,0 +1,53 @@
+<script>
+    class Node {
+        constructor(data) {
+            this.data = data
+            this.next = null
+        }
+    }
+
+    class List {
+        constructor() {
+            this.head = null
+        }
+        insertAtAnyPos(index, data) {
+            const newNode = new Node(data)
+            var current = this.head
+            if (index == 0) {
+                newNode.next = current
+                this.head = newNode
+                return
+            }
+            if(current == null) {
+                console.log("No head is present in the Node")
+                return
+            }
+            while (--index) {
+                if (current.next != null) {
+                    current = current.next
+                } else {
+                    console.log("Index Out of Boundary")
+                    return
+                }
+            }
+            var temp = current.next
+            current.next = newNode
+            newNode.next = temp
+        }
+        NodeCount() {
+            var current = this.head
+            var count = 0 
+            while(current) {
+                count++
+                current = current.next
+            }
+            return count
+        }
+    }
+    var list = new List()
+    list.insertAtAnyPos(0, 200)
+    list.insertAtAnyPos(1,50)
+    list.insertAtAnyPos(2,150)
+    console.log(list.NodeCount())
+    console.log(list)
+</script>

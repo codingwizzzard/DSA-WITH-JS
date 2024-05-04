@@ -1,0 +1,58 @@
+<script>
+    class Node {
+        constructor(data) {
+            this.data = data
+            this.next = null
+        }
+    }
+
+    class List {
+        constructor() {
+            this.head = null
+        }
+        insertAtAnyPos(index, data) {
+            const newNode = new Node(data)
+            var current = this.head
+            if (index == 0) {
+                newNode.next = current
+                this.head = newNode
+                return
+            }
+            if (current == null) {
+                console.log("No head is present")
+                return
+            }
+            while (--index) {
+                if (current.next != null) {
+                    current = current.next
+                } else {
+                    console.log("Index out of boundary")
+                    return
+                }
+            }
+            var temp = current.next
+            current.next = newNode
+            newNode.next = temp
+        }
+        SearchEle(data) {
+            var current  = this.head
+            var pos = 1
+            while(current) {
+                if(current.data == data) {
+                    console.log(`Element found at node : ${pos}`)
+                    return true
+                }
+                current = current.next
+                pos++
+            }
+            console.log("Element not found")
+            return false
+        }
+    }
+    
+    const list = new List
+    list.insertAtAnyPos(0, 20)
+    list.insertAtAnyPos(1, 5)
+    const result = list.SearchEle(20)
+    console.log(list)
+</script>

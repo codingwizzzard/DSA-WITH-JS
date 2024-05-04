@@ -1,0 +1,66 @@
+<script>
+    class Node {
+        constructor(data) {
+            this.data = data
+            this.next = null
+        }
+    }
+    class List {
+        constructor() {
+            this.head = null
+        }
+        removeAtFirst(data) {
+            var newNode = new Node(data)
+            if (this.head == null) {
+                console.log("List is empty. Nothing to remove.");
+                return;
+            }
+            this.head = this.head.next;
+        }
+        removeAtLast(data) {
+            var newNode = new Node(data)
+            if (this.head == null) {
+                console.log("List is empty. Nothing to remove.");
+                return;
+            }
+            if (this.head.next == null) {
+                this.head = null;
+                return;
+            }
+            let current = this.head;
+            while (current.next.next !== null) {
+                current = current.next;
+            }
+            current.next = null;
+        }
+        removeAtAnyPos(index) {
+            var current = this.head
+            if (index == 0) {
+                this.head = this.head.next
+            } else {
+                while (--index) {
+                    if (current.next != null) {
+                        current = current.next
+                    } else {
+                        console.log("Index Out of bound")
+                        return
+                    }
+                }
+                if (current.next != null) {
+                    current.next = current.next.next
+                } else {
+                    console.log("Index out of bound")
+                }
+            }
+        }
+    }
+    const list = new List()
+    list.head = new Node(1)
+    list.head.next = new Node(2)
+    list.head.next.next = new Node(3)
+    list.head.next.next.next = new Node(4)
+    list.removeAtAnyPos(1)
+    list.removeAtLast()
+    list.removeAtFirst()
+    console.log(list)
+</script>

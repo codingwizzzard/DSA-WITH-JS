@@ -1,0 +1,61 @@
+<script>
+    class Node {
+        constructor(data) {
+            this.data = data
+            this.next = null
+        }
+    }
+
+    class List {
+        constructor() {
+            this.head = null
+        }
+        insertAtFirst(data) {
+            var newNode = new Node(data)
+            newNode.next = this.head
+            this.head = newNode
+        }
+        insertAtLast(data) {
+            const newNode = new Node(data)
+            if (this.head == null) {
+                this.head = newNode
+            } else {
+                var current = this.head
+                while (current.next != null) {
+                    current = current.next
+                }
+                current.next = newNode
+            }
+        }
+        insertAtAnyPos(index, data) {
+            const newNode = new Node(data)
+            var current = this.head
+            if(index == 0) {
+                newNode.next = current
+                this.head = newNode
+                return
+            }
+            while (--index) {
+                if (current.next != null) {
+                    current = current.next
+                } else {
+                    console.log("Index Out of Bound")
+                    return
+                }
+            }
+            var temp = current.next
+            current.next = newNode
+            newNode.next = temp
+        }
+    }
+
+    const list = new List()
+    list.insertAtLast(10)
+    list.insertAtLast(20)
+    list.insertAtLast(30)
+    list.insertAtLast(40)
+    list.insertAtLast(50)
+    list.insertAtFirst(7)
+    list.insertAtAnyPos(0,100)
+    console.log(list)
+</script>

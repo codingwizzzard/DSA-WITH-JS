@@ -1,0 +1,57 @@
+<script>
+    class Node {
+        constructor(data) {
+            this.data = data
+            this.next = null
+        }
+    }
+
+    class List {
+        constructor() {
+            this.head = null
+        }
+        insertAtAnyPos(index, data) {
+            const newNode = new Node(data)
+            var current = this.head
+            if (index == 0) {
+                newNode.next = current
+                this.head = newNode
+                return
+            }
+            while (--index) {
+                if (current.next != null) {
+                    current = current.next
+                } else {
+                    console.log("Index out of boundary")
+                    return
+                }
+            }
+            var temp = current.next
+            current.next = newNode
+            newNode.next = temp
+        }
+        removeDup() {
+            var current = this.head
+            while (current != null) {
+                var nextNode = current
+                while (nextNode.next != null) {
+                    if (nextNode.next.data == current.data) {
+                        nextNode.next = nextNode.next.next;
+                    } else {
+                        nextNode = nextNode.next;
+                    }
+                }
+                current = current.next;
+            }
+        }
+    }
+    const list = new List
+    list.insertAtAnyPos(0, 10)
+    list.insertAtAnyPos(1, 20)
+    list.insertAtAnyPos(2, 30)
+    list.insertAtAnyPos(3, 20)
+    list.insertAtAnyPos(4, 10)
+    list.insertAtAnyPos(5, 10)
+    list.removeDup()
+    console.log(list)
+</script>
